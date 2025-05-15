@@ -40,7 +40,7 @@ async function scrapeWired(browser) {
             source: 'Wired – Artificial Intelligence',
             title,
             link: href,
-            excerpt: '' // Wired não tem resumo fácil no mesmo bloco
+            excerpt: ''
           });
         }
       });
@@ -56,7 +56,6 @@ async function scrapeWired(browser) {
     return [];
   }
 }
-
 
 async function scrapeVentureBeat(browser) {
   try {
@@ -75,7 +74,7 @@ async function scrapeVentureBeat(browser) {
             source: 'VentureBeat – Artificial Intelligence',
             title,
             link: href,
-            excerpt: '' // podemos buscar texto depois, se necessário
+            excerpt: ''
           });
         }
       });
@@ -92,14 +91,13 @@ async function scrapeVentureBeat(browser) {
   }
 }
 
-
 async function gerarResumoOpenAI(texto) {
   try {
     console.log(`Gerando resumo para: ${texto.slice(0, 80)}...`);
     const prompt = `Resuma a seguinte notícia em 2 ou 3 frases objetivas, em português:\n\n"${texto}"`;
 
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'o4-mini',
       messages: [{ role: 'user', content: prompt }]
     });
 
@@ -115,9 +113,9 @@ async function gerarResumoOpenAI(texto) {
 async function scrapeFeeds({ comFiltro = false } = {}) {
   console.log('Iniciando scraping...');
   const browser = await puppeteer.launch({
-  headless: 'new',
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
-});
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
 
   const allArticles = [];
 
