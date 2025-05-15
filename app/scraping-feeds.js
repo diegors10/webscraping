@@ -114,7 +114,10 @@ async function gerarResumoOpenAI(texto) {
 
 async function scrapeFeeds({ comFiltro = false } = {}) {
   console.log('Iniciando scraping...');
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({
+  headless: 'new',
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
 
   const allArticles = [];
 
